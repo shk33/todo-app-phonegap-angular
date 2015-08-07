@@ -1,3 +1,5 @@
+<a href="#/new" class="btn btn-primary">New TODO</a>
+<br>
 <span>{{remaining()}} of {{todos.length}} remaining</span>
 <table>
   <thead>
@@ -12,7 +14,7 @@
       <td>{{todo.text}}</td>
       <td><input type="checkbox" ng-model="todo.done"></td>
       <td>
-        <a href="#/edit/{{todo.text}}">
+        <a href="#/edit/{{todo._id}}">
           <i class="icon-pencil">Edit Details</i>
         </a>
       </td>

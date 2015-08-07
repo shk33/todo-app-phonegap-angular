@@ -9,7 +9,7 @@ angular.module('todoApp', [
         controller: 'ListCtrl',
         templateUrl: 'partials/list.html'
     })
-    .when('/edit/:todoText', {
+    .when('/edit/:todoID', {
         controller: 'EditCtrl',
         templateUrl: 'partials/details.html'
 

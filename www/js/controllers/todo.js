@@ -1,49 +1,52 @@
 angular.module('todoApp.controllers', [])
-.controller('ListCtrl', function ($scope, $http, Todos) {
-  $scope.todos = Todos;
+.controller('ListCtrl', function ($scope,$rootScope ,$http, Todos) {
+  Todos.getAll().success(function (data) {
+    $rootScope.todos = data.todos;
+  });
+
   $scope.remaining = function () {
     var count = 0;
-    angular.forEach($scope.todos, function(todo){
-      count += todo.done ? 0: 1;
+    angular.forEach($scope.todos, function (todo) {
+      count += todo.done? 0:1;
     });
     return count;
   };
 })
-.controller('CreateCtrl', function ($scope, $location, $timeout, Todos) {
+.controller('CreateCtrl', function ($scope, $rootScope, $location, $timeout, Todos) {
   $scope.todoText = "";
   $scope.todoDetails = "";
   $scope.save = function () {
-    Todos.push({
+    var todo = {
       text: $scope.todoText,
-      details: $scope.todoDetails,
-      done: false
-    });
+      done: false,
+      details: $scope.todoDetails
+    };
+    console.log($rootScope.todos);
+    $rootScope.todos.push(todo);
+
+    Todos.save(todo);
     $location.path('/');
   };
 })
-.controller('EditCtrl', function ($scope, $location, $routeParams, Todos) {
-  $scope.todos = Todos;
-
-  var result = $scope.todos.filter(function (obj) {
-    return obj.text == $routeParams.todoText;
+.controller('EditCtrl', function($scope,  $location,  $routeParams, Todos)  {
+  //$scope.todos  = Todos;
+  console.log($routeParams.todoID);
+  var id  = $routeParams.todoID;
+  var result  = Todos.getTodo(id).success(function(data)  {
+    console.log(" and the returned  data  is  ");
+    console.log(data);
+    $scope.todoText = data.text;
+    $scope.todoDetails  = data.details;
+    return  data;
   });
-  $scope.todoText = result[0].text;
-  $scope.todoDetails = result[0].details;
-  $scope.save = function () {
-    var text    = $scope.todoText;
-    var details = $scope.todoDetails;
-    var done    = $scope.todoDone;
-    alert(text);
-    angular.forEach($scope.todos, function(todo){
-      if (todo.text == text) {
-        todo.text = text;
-        todo.details = details;
-      }
-    });
-    $location.path('/');
-  };
-  $scope.destroy = function () {
-    $scope.project.$remove();
+  $scope.save = function()  {
+    var todo  = {
+      id:      $routeParams.todoID,
+      text:    $scope.todoText,
+      details: $scope.todoDetails,
+      done:    true
+    };
+    Todos.edit(id, todo);
     $location.path('/');
   };
 });
