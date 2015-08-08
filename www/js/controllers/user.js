@@ -1,4 +1,4 @@
-angular.module('todosApp.userControllers', [])
+angular.module('todoApp.userController', [])
 .controller('UserLoginCtrl', function ($scope, $rootScope, $http,
   $location, Todos) {
   $scope.login = function () {

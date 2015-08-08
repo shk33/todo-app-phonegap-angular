@@ -1,7 +1,7 @@
 angular.module('todoApp', [
     'ngRoute',
     'todoApp.controllers',
-    'todoApp.userControllers',
+    'todoApp.userController',
     'todoApp.services'
 ])
 .config(function ($routeProvider) {
@@ -13,12 +13,10 @@ angular.module('todoApp', [
     .when('/edit/:todoID', {
         controller: 'EditCtrl',
         templateUrl: 'partials/details.html'
-
     })
     .when('/new',{
         controller: 'CreateCtrl',
         templateUrl: 'partials/new.html'
-
     })
     .when('/login',{
         controller: 'UserLoginCtrl',
