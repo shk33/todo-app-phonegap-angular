@@ -21,7 +21,6 @@ angular.module('todoApp.controllers', [])
       done: false,
       details: $scope.todoDetails
     };
-    console.log($rootScope.todos);
     $rootScope.todos.push(todo);
 
     Todos.save(todo);
@@ -37,6 +36,7 @@ angular.module('todoApp.controllers', [])
     console.log(data);
     $scope.todoText = data.text;
     $scope.todoDetails  = data.details;
+    $scope.todoDone  = data.done;
     return  data;
   });
   $scope.save = function()  {
@@ -44,7 +44,7 @@ angular.module('todoApp.controllers', [])
       id:      $routeParams.todoID,
       text:    $scope.todoText,
       details: $scope.todoDetails,
-      done:    true
+      done:    $scope.todoDone
     };
     Todos.edit(id, todo);
     $location.path('/');

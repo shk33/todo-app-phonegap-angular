@@ -16,7 +16,7 @@ angular.module('todoApp', [
     })
     .when('/new',{
         controller: 'CreateCtrl',
-        templateUrl: 'partials/details.html'
+        templateUrl: 'partials/new.html'
 
     })
     .otherwise({
