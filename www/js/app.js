@@ -1,6 +1,7 @@
 angular.module('todoApp', [
     'ngRoute',
     'todoApp.controllers',
+    'todoApp.userControllers',
     'todoApp.services'
 ])
 .config(function ($routeProvider) {
@@ -18,6 +19,10 @@ angular.module('todoApp', [
         controller: 'CreateCtrl',
         templateUrl: 'partials/new.html'
 
+    })
+    .when('/login',{
+        controller: 'UserLoginCtrl',
+        templateUrl: 'partials/login.html'
     })
     .otherwise({
         redirectTo: '/'        
